@@ -4,11 +4,11 @@
   <head>    
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="icon" href="img/fav/favicon.ico" type="image">
-    <link rel="apple-touch-icon" sizes="180x180" href="img/fav/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="img/fav/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="img/fav/favicon-16x16.png">
-    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="icon" href="{% static 'img/fav/favicon.ico' %}" type="image">
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'img/fav/apple-touch-icon.png' %}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'img/fav/favicon-32x32.png' %}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'img/fav/favicon-16x16.png' %}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
     <title>Лента записей</title>
   </head>
   <body>	   
@@ -16,7 +16,7 @@
       <nav class="navbar navbar-light" style="background-color: lightskyblue">
         <div class="container">
           <a class="navbar-brand" href="index.html">
-            <img src="img/logo.png" width="30" height="30" class="d-inline-block align-top" alt="">
+            <img src="{% static "img/logo.png" %}" width="30" height="30" class="d-inline-block align-top" alt="">
             Блогикум
           </a>        
           <ul class="nav  nav-pills">
@@ -48,87 +48,21 @@
           <article>
             <ul>
               <li>
-                {% block place %}
-
-                {% endblock place %}
+                Место: {{ p.location }}
               </li>
               <li>
-                {% block date %}
-
-                {% endblock date %}
+                Дата: {{ p.date }}
               </li>
               <li>
-                {% block category %}
-                
-                {% endblock category %}
+                Категория: <a href="{% url 'blog:category_posts' p.category %}">{{ p.category }}</a> 
               </li>
             </ul>
             <p>
-              {% block short_text %}
-              
-              {% endblock short_text %}
+              {{ p.text|truncatewords:10 }}
             </p>
-            <a href="{% url 'post_detail' 0 %}"></a>
+            <a href="{% url 'blog:post_detail' p.id %}">Читать полный текст</a>
           </article>
-
-        {% endfor %}
-        <hr>
-        <article>
-          <ul>
-            <li>
-              Место: Остров отчаянья              
-            </li>
-            <li>
-              Дата: 25 октября 1659 года
-            </li>
-            <li>
-              Категория: <a href="not-my-day">not-my-day</a>
-            </li>
-          </ul>          
-          <!-- Первые 10 слов -->
-          <p>
-            Всю ночь и весь день шел дождь и дул сильный ...
-          </p>
-          <a href="detail.html">Читать полный текст</a>
-        </article>
-        <hr>
-        <article>
-          <ul>
-            <li>
-              Место: Остров отчаянья              
-            </li>
-            <li>
-              Дата: 1 октября 1659 года
-            </li>
-            <li>
-              Категория: <a href="not-my-day">not-my-day</a>
-            </li>
-          </ul>
-          <!-- Первые 10 слов -->
-          <p>
-            Проснувшись поутру, я увидел, что наш корабль сняло с мели ...
-          </p>
-          <a href="detail.html">Читать полный текст</a>
-        </article>
-        <hr>
-        <article>
-          <ul>
-            <li>
-              Место: Остров отчаянья              
-            </li>
-            <li>
-              Дата: 30 сентября 1659 года.
-            </li>
-            <li>
-              Категория: <a href="travel">travel</a>
-            </li>
-          </ul>
-          <!-- Первые 10 слов -->
-          <p>
-            Наш корабль, застигнутый в открытом море страшным штормом, потерпел крушение. ...
-          </p>
-          <a href="detail.html">Читать полный текст</a>
-        </article>                 
+        {% endfor %}              
       </div>
     </main>
     <footer class="border-top text-center py-3">
