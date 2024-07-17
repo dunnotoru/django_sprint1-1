@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html> 
 <html lang="ru"> 
   <head>    
@@ -42,6 +43,35 @@
       <div class="container py-5">
         <h1>Лента записей</h1>                        
         <!-- Перебираем в цикле все посты -->
+        {% for p in posts %}
+          <hr>
+          <article>
+            <ul>
+              <li>
+                {% block place %}
+
+                {% endblock place %}
+              </li>
+              <li>
+                {% block date %}
+
+                {% endblock date %}
+              </li>
+              <li>
+                {% block category %}
+                
+                {% endblock category %}
+              </li>
+            </ul>
+            <p>
+              {% block short_text %}
+              
+              {% endblock short_text %}
+            </p>
+            <a href="{% url 'post_detail' 0 %}"></a>
+          </article>
+
+        {% endfor %}
         <hr>
         <article>
           <ul>
